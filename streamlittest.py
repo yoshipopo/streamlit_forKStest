@@ -10,3 +10,4 @@ import streamlit as st
 #import pandas_datareader.data as web
 
 st.title('モンテカルロシミュレーション')
+st.caption(sys.version)
