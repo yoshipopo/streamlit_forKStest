@@ -12,9 +12,20 @@ import sys
 import pandas
 import numpy
 
-st.title('モンテカルロシミュレーション')
-st.caption(sys.version)
-path = 'data_j.xls'
-df_all_company_list = path_to_df_all_company_list(path)
-st.write('全銘柄')
-st.dataframe(df_all_company_list)
+def main():
+  st.title('モンテカルロシミュレーション')
+  st.caption(sys.version)
+  path = 'data_j.xls'
+  df_all_company_list = path_to_df_all_company_list(path)
+  st.write('全銘柄')
+  st.dataframe(df_all_company_list)
+
+ 
+def path_to_df_all_company_list(path):
+    df_all_company_list = pd.read_excel(path)
+    df_all_company_list = df_all_company_list.replace('-', np.nan)
+    df_all_company_list['コード&銘柄名'] = df_all_company_list['コード'].astype(str)+df_all_company_list['銘柄名']
+    return df_all_company_list
+  
+if __name__ == "__main__":
+    main()
