@@ -20,6 +20,10 @@ def main():
   df_all_company_list = path_to_df_all_company_list(path)
   st.write('全銘柄')
   st.dataframe(df_all_company_list)
+  
+  selections = st.multiselect('銘柄を複数選択してください',df_all_company_list['コード&銘柄名'],
+                              ['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'],on_change=session_change)
+  st.write('選択した銘柄')
 
  
 def path_to_df_all_company_list(path):
