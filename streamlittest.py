@@ -11,6 +11,7 @@ import sys
 #import pandas_datareader.data as web
 import pandas as pd
 import numpy as np
+from collections import deque
 
 def main():
   st.title('モンテカルロシミュレーション')
