@@ -19,9 +19,9 @@ st.set_page_config(layout="wide")
 
 def main():
   st.title('モンテカルロシミュレーション')
-  st.caption(sys.version)
+  st.write(sys.version)
   
-  st.snow()
+  #st.snow()
   
   path = 'data_j.xls'
   df_all_company_list = path_to_df_all_company_list(path)
