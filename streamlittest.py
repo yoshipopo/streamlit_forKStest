@@ -8,7 +8,9 @@ Created on Tue Jul 12 17:51:47 2022
 
 import streamlit as st
 import sys
-import pandas_datareader.data as web
+#import pandas_datareader.data as web
+import pandas
+import numpy
 
 st.title('モンテカルロシミュレーション')
 st.caption(sys.version)
