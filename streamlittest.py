@@ -32,7 +32,9 @@ def main():
   selected_company_list_hyouji = selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[2]
   selected_company_list_hyouji_datenashi = selections
   
-
+  duration = st.slider('株価取得期間は？(年)',1,10,2,)
+  
+  
 def session_change():
     if "is_pressed" in st.session_state:
         st.session_state["is_pressed"].update({"pressed": None})
