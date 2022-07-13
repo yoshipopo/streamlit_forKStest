@@ -22,8 +22,8 @@ def main():
   st.write('全銘柄')
   st.dataframe(df_all_company_list)
   
-  selections = st.multiselect('銘柄を複数選択してください',df_all_company_list['コード&銘柄名'],
-                              ['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'])
+  selections = st.multiselect('銘柄を複数選択してください',df_all_company_list['コード&銘柄名'],)
+                              #['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'])
   st.write('選択した銘柄')
   
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
