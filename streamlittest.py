@@ -34,7 +34,7 @@ def main():
   
   
   duration = st.slider('株価取得期間は？(年)',1,10,2,)
-  N = st.slider('モンテカルロ法回数は？',100,100000,10000,
+  N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
   
   
 def session_change():
