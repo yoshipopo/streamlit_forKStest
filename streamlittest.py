@@ -14,3 +14,7 @@ import numpy
 
 st.title('モンテカルロシミュレーション')
 st.caption(sys.version)
+path = 'data_j.xls'
+df_all_company_list = path_to_df_all_company_list(path)
+st.write('全銘柄')
+st.dataframe(df_all_company_list)
