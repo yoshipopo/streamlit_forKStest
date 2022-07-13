@@ -12,6 +12,7 @@ from pandas_datareader.stooq import StooqDailyReader
 #import pandas_datareader.data as web
 import pandas as pd
 import numpy as np
+import datetime as dt
 from collections import deque
 
 def main():
