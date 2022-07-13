@@ -172,12 +172,6 @@ def main():
 
     st.plotly_chart(fig)
 
-
-"""
-def session_change():
-    if "is_pressed" in st.session_state:
-        st.session_state["is_pressed"].update({"pressed": None})
-        """
         
 def path_to_df_all_company_list(path):
     df_all_company_list = pd.read_excel(path)
