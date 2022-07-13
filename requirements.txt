@@ -1,7 +1,7 @@
 streamlit
 #pandas_datareader.data
 pandas_datareader
-pandas_datareader.stooq
+#pandas_datareader.stooq
 # import StooqDailyReader
 pandas
 numpy
