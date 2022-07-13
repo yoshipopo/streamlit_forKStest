@@ -12,8 +12,9 @@ from pandas_datareader.stooq import StooqDailyReader
 #import pandas_datareader.data as web
 import pandas as pd
 import numpy as np
-import datetime as dt
 from collections import deque
+import datetime as dt
+import plotly.graph_objects as go
 
 def main():
   st.title('モンテカルロシミュレーション')
