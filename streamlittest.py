@@ -15,9 +15,9 @@ from collections import deque
 import datetime as dt
 import plotly.graph_objects as go
 
-st.set_page_config(layout="wide")
 
 def main():
+  st.set_page_config(layout="wide")
   st.title('モンテカルロシミュレーション')
   st.write(sys.version)
   
@@ -87,6 +87,31 @@ def main():
     st.plotly_chart(fig)
 
     st.dataframe(df_tourakuritu_merged)
+    
+    fig = go.Figure()
+    for i in range(len(selected_company_list_hyouji_datenashi)):
+        fig.add_trace(go.Histogram(x=df_tourakuritu_merged.iloc[:,i+1],
+                                   opacity=0.5, name='{}'.format(selected_company_list_hyouji_datenashi[i]),
+                                   nbinsx=50
+                                   #histnorm='probability',
+                                   #hovertext='date{}'.df_tourakuritu_merged.iloc[:,i+1]
+                                   ))
+        fig.update_layout(height=500,width=1500,
+                          title='収益率のヒストグラム',
+                          xaxis={'title': '騰落率'},
+                          yaxis={'title': '度数'})
+
+    fig.update_layout(barmode='overlay')
+    st.plotly_chart(fig)
+        
+    #相関係数
+    fig_corr = px.imshow(df_tourakuritu_merged.corr(), text_auto=True, 
+                         zmin=-1,zmax=1,
+                         color_continuous_scale=['blue','white','red'])
+    fig_corr.update_layout(height=500,width=1000,
+                           title='収益率の相関係数'
+                           )
+    st.plotly_chart(fig_corr)
 
 
 """
