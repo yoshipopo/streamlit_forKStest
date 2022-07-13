@@ -39,13 +39,21 @@ def main():
   duration = st.slider('株価取得期間は？(年)',1,10,2,)
   N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
   
-  press_button = st.button("submit,csv取得")
-  st.session_state["is_pressed"] = button_states()
+  #press_button = st.button("submit,csv取得")
+  #st.session_state["is_pressed"] = button_states()
+  if st.button("submit,csv取得"):
+    
+    df_price_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[0]
+    df_tourakuritu_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[1]
+
+    st.dataframe(df_price_merged)
+    
   
-  
+"""
 def session_change():
     if "is_pressed" in st.session_state:
         st.session_state["is_pressed"].update({"pressed": None})
+        """
         
 def path_to_df_all_company_list(path):
     df_all_company_list = pd.read_excel(path)
