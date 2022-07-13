@@ -15,9 +15,8 @@ from collections import deque
 import datetime as dt
 import plotly.graph_objects as go
 
-
+st.set_page_config(layout="wide")
 def main():
-  st.set_page_config(layout="wide")
   st.title('モンテカルロシミュレーション')
   st.write(sys.version)
   
