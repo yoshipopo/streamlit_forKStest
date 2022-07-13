@@ -25,7 +25,12 @@ def main():
                               ['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'],on_change=session_change)
   st.write('選択した銘柄')
 
- 
+  
+
+def session_change():
+    if "is_pressed" in st.session_state:
+        st.session_state["is_pressed"].update({"pressed": None})
+        
 def path_to_df_all_company_list(path):
     df_all_company_list = pd.read_excel(path)
     df_all_company_list = df_all_company_list.replace('-', np.nan)
