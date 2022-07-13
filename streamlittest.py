@@ -17,9 +17,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 def main():
-  st.title('モンテカルロシミュレーション')
+  st.title('Monte Carlo simulation')
   st.write(sys.version)
   
   #st.snow()
