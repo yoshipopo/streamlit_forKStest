@@ -9,12 +9,13 @@ Created on Tue Jul 12 17:51:47 2022
 import streamlit as st
 import sys
 from pandas_datareader.stooq import StooqDailyReader
-#import pandas_datareader.data as web
 import pandas as pd
 import numpy as np
 from collections import deque
 import datetime as dt
 import plotly.graph_objects as go
+
+st.set_page_config(layout="wide")
 
 def main():
   st.title('モンテカルロシミュレーション')
@@ -60,7 +61,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='資産価格推移',
+                      title='株価推移',
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price/円'})                  
     fig.update_layout(showlegend=True)
