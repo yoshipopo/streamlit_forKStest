@@ -58,6 +58,38 @@ def selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_
     d.appendleft('Date')
     selected_company_list_hyouji = list(d)
     return df_meigarasenntaku_temp, selected_company_list, selected_company_list_hyouji
+
+def selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration):
+    end = dt.datetime.now()
+    start = end-dt.timedelta(days=duration*365)
+    for i in range(len(selected_company_list)):
+        code = selected_company_list[i]
+
+        stooq = StooqDailyReader(code, start=start, end=end)
+        df = stooq.read()  # pandas.core.frame.DataFrame
+
+        df_price = df['Close']
+        df_price = df_price.reset_index()
+
+        df_tourakuritu = df['Close']
+        df_tourakuritu = df_tourakuritu.pct_change(-1)
+        df_tourakuritu = df_tourakuritu.reset_index()
+        df_tourakuritu = df_tourakuritu.dropna()
+        df_tourakuritu = df_tourakuritu.reset_index(drop=True)
+
+        if i ==0:
+          df_price_merged = df_price
+          df_tourakuritu_merged = df_tourakuritu
+        else:
+          df_price_merged=pd.merge(df_price_merged, df_price, on='Date')
+          df_tourakuritu_merged=pd.merge(df_tourakuritu_merged, df_tourakuritu, on='Date')
+          
+    df_price_merged = df_price_merged.set_axis(selected_company_list_hyouji, axis='columns')
+    df_tourakuritu_merged = df_tourakuritu_merged.set_axis(selected_company_list_hyouji, axis='columns')
+    df_price_merged['Date'] = df_price_merged['Date'].dt.round("D")
+    df_tourakuritu_merged['Date'] = df_tourakuritu_merged['Date'].dt.round("D")
+    return df_price_merged, df_tourakuritu_merged
+  
   
 if __name__ == "__main__":
     main()
