@@ -83,10 +83,7 @@ def main():
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price'})
     fig.update_layout(showlegend=True)
-    fig.add_shape(type="line",
-                  x0=standard_date, y0=0,
-                  x1=standard_date, y1=100,
-        line=dict(color="black",width=1))
+    #fig.add_shape(type="line",x0=standard_date, y0=0, x1=standard_date, y1=100, line=dict(color="black",width=1))
     st.plotly_chart(fig)
 
     st.dataframe(df_tourakuritu_merged)
