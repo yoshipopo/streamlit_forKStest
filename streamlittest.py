@@ -82,14 +82,14 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='資産価格推移({}=100)'.format(standard_date),
+                      title='株価推移({}=100)'.format(standard_date),
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price'})
     fig.update_layout(showlegend=True)
     #fig.add_shape(type="line",x0=standard_date, y0=0, x1=standard_date, y1=100, line=dict(color="black",width=1))
     st.plotly_chart(fig)
 
-    st.dataframe(df_tourakuritu_merged)
+    #st.dataframe(df_tourakuritu_merged)
     
     fig = go.Figure()
     for i in range(len(selected_company_list_hyouji_datenashi)):
@@ -101,8 +101,9 @@ def main():
                                    #histnorm='probability',
                                    #hovertext='date{}'.df_tourakuritu_merged.iloc[:,i+1]
                                    ))
-        fig.update_layout(height=500,width=1500,
-                          title='収益率のヒストグラム',
+        fig.update_layout(
+          #height=500,width=1500,
+                          #title='収益率のヒストグラム',
                           xaxis={'title': '騰落率'},
                           yaxis={'title': '度数'})
 
