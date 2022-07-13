@@ -26,8 +26,8 @@ def main():
                               #['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'])
   st.write('選択した銘柄')
   
+  
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
-
   selected_company_list = selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[1]
   selected_company_list_hyouji = selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[2]
   selected_company_list_hyouji_datenashi = selections
@@ -35,6 +35,9 @@ def main():
   
   duration = st.slider('株価取得期間は？(年)',1,10,2,)
   N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
+  
+  press_button = st.button("submit,csv取得")
+  st.session_state["is_pressed"] = button_states()
   
   
 def session_change():
