@@ -14,6 +14,8 @@ import numpy as np
 from collections import deque
 import datetime as dt
 import plotly.graph_objects as go
+import plotly.express as px
+
 
 st.set_page_config(layout="wide")
 def main():
