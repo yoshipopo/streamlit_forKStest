@@ -92,7 +92,7 @@ def main():
     fig = go.Figure()
     for i in range(len(selected_company_list_hyouji_datenashi)):
         fig.add_trace(go.Histogram(x=df_tourakuritu_merged.iloc[:,i+1],
-                                   xbins=dict(start=-0.5, end=0.5, size=0.005),
+                                   xbins=dict(start=-0.5, end=0.5, size=0.002),
                                    opacity=0.5,
                                    name='{}'.format(selected_company_list_hyouji_datenashi[i]),
                                    #nbinsx=50
