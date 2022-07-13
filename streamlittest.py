@@ -72,7 +72,9 @@ def main():
     df_price_100 = df_price_merged
     for i in range(len(selected_company_list_hyouji_datenashi)):
       df_price_100[selected_company_list_hyouji_datenashi[i]]=100*df_price_100[selected_company_list_hyouji_datenashi[i]]/df_price_100.at[df_price_100.index[standard_date_tentative2], selected_company_list_hyouji_datenashi[i]]
-
+    
+    #100に揃えた価格推移
+   
     b=df_price_100
     fig = go.Figure()
     for i in range(len(selected_company_list_hyouji_datenashi)):
@@ -115,6 +117,60 @@ def main():
                            title='収益率の相関係数'
                            )
     st.plotly_chart(fig_corr)
+    
+    #モンテカルロ法
+    
+    df=df_tourakuritu_merged
+    df=df.drop('Date', axis=1)
+    company_list_hyouji_datenashi=df.columns.values
+    #st.write(company_list_hyouji_datenashi)
+
+    n=len(df.columns)
+    #st.write(n)
+
+    def get_portfolio(array1,array2,array3):
+        rp = np.sum(array1*array2)
+        sigmap = array1 @ array3 @ array1
+        return array1.tolist(), rp, sigmap
+
+    df_vcm=df.cov()
+
+    a=np.ones((n,n))
+    np.fill_diagonal(a,len(df))
+    np_vcm=df_vcm.values@a
+
+    a=np.ones((n,n))
+    np.fill_diagonal(a,len(df))
+
+    df_mean=df.mean()
+    np_mean=df_mean.values
+    np_mean=np_mean*len(df)
+
+    #N=int(st.number_input('モンテカルロシミュレーション回数は？',min_value=1000))
+    x=np.random.uniform(size=(N,n))
+    x/=np.sum(x, axis=1).reshape([N, 1])
+
+    temp=np.identity(n)
+    x=np.append(x,temp, axis=0)
+
+    squares = [get_portfolio(x[i],np_mean,np_vcm) for i in range(x.shape[0])]
+    df2 = pd.DataFrame(squares,columns=['投資比率','収益率', '収益率の分散'])
+
+    df2['分類']='PF{}資産で構成'.format(len(company_list_hyouji_datenashi))
+    for i in range(x.shape[0]-n,x.shape[0]):
+      df2.iat[i, 3] = company_list_hyouji_datenashi[i-x.shape[0]]
+      #print(i,company_list_hyouji_datenashi[i-x.shape[0]])
+
+    st.dataframe(df2)
+
+    fig = px.scatter(df2, x='収益率の分散', y='収益率',hover_name='投資比率',color='分類')
+    fig.update_layout(height=500,width=1000,
+                      title='モンテカルロシミュレーション結果',
+                      xaxis={'title': '収益率の分散'},
+                      yaxis={'title': '収益率'},
+                      )
+
+    st.plotly_chart(fig)
 
 
 """
