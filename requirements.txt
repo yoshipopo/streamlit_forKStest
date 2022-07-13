@@ -1,1 +1,1 @@
-streamlit @ file:///home/conda/feedstock_root/build_artifacts/streamlit_1651857515193/work
+streamlit
