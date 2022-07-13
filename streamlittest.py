@@ -8,6 +8,7 @@ Created on Tue Jul 12 17:51:47 2022
 
 import streamlit as st
 import sys
+from pandas_datareader.stooq import StooqDailyReader
 #import pandas_datareader.data as web
 import pandas as pd
 import numpy as np
