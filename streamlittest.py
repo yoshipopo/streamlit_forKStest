@@ -49,6 +49,22 @@ def main():
 
     st.dataframe(df_price_merged)
     
+    a=df_price_merged
+    fig = go.Figure()
+    for i in range(len(selected_company_list_hyouji_datenashi)):
+      fig.add_trace(go.Scatter(x=a['Date'],
+                          y=a.iloc[:,i+1],
+                          name=selected_company_list_hyouji_datenashi[i])
+                    )
+    fig.update_traces(hovertemplate='%{y}')
+    fig.update_layout(hovermode='x')
+    fig.update_layout(height=500,width=1500,
+                      title='資産価格推移',
+                      xaxis={'title': 'Date'},
+                      yaxis={'title': 'price/円'})                  
+    fig.update_layout(showlegend=True)
+    st.plotly_chart(fig)
+    
   
 """
 def session_change():
