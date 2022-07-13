@@ -2,3 +2,4 @@ streamlit
 #pandas_datareader.data
 pandas
 numpy
+xlrd
