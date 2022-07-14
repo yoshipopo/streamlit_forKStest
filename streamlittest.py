@@ -27,12 +27,12 @@ def main():
   #全銘柄リスト、xlsファイル読み込み
   path = 'data_j.xls'
   df_all_company_list = path_to_df_all_company_list(path)
-  st.write('全銘柄')
+  st.write('stocks 全銘柄')
   st.dataframe(df_all_company_list)
   
   #銘柄選択
-  selections = st.multiselect('銘柄を複数選択してください',df_all_company_list['コード&銘柄名'],)
-  st.write('選択した銘柄')
+  selections = st.multiselect('select',df_all_company_list['コード&銘柄名'],)
+  st.write('selected stocks 選択した銘柄')
   
   #選択した銘柄表示
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
@@ -41,11 +41,11 @@ def main():
   selected_company_list_hyouji_datenashi = selections
   
   #パラメータ設定
-  duration = st.slider('株価取得期間は？(年)',1,10,2,)
+  duration = st.slider('How many years? 株価取得期間は？(年)',1,10,2,)
   N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
   
   #ボタン部分
-  if st.button("submit,csv取得"):
+  if st.button("submit,get csv"):
     
     df_price_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[0]
     df_tourakuritu_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[1]
@@ -59,7 +59,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='株価推移',
+                      title='Stock Prices',
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price/円'})                  
     fig.update_layout(showlegend=True)
@@ -74,7 +74,6 @@ def main():
       df_price_100[selected_company_list_hyouji_datenashi[i]]=100*df_price_100[selected_company_list_hyouji_datenashi[i]]/df_price_100.at[df_price_100.index[standard_date_tentative2], selected_company_list_hyouji_datenashi[i]]
     
     #100に揃えた価格推移
-   
     b=df_price_100
     fig = go.Figure()
     for i in range(len(selected_company_list_hyouji_datenashi)):
@@ -82,7 +81,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='株価推移({}=100)'.format(standard_date),
+                      title='Stock Prices({}=100)'.format(standard_date),
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price'})
     fig.update_layout(showlegend=True)
@@ -101,26 +100,25 @@ def main():
                                    #histnorm='probability',
                                    #hovertext='date{}'.df_tourakuritu_merged.iloc[:,i+1]
                                    ))
-        fig.update_layout(
-          #height=500,width=1500,
-                          #title='収益率のヒストグラム',
-                          xaxis={'title': '騰落率'},
+        fig.update_layout(height=500,width=1500,
+                          title='日時収益率のヒストグラム',
+                          xaxis={'title': '日時収益率'},
                           yaxis={'title': '度数'})
 
     fig.update_layout(barmode='overlay')
     st.plotly_chart(fig)
         
-    #相関係数
+    #correlation
     fig_corr = px.imshow(df_tourakuritu_merged.corr(), text_auto=True, 
                          zmin=-1,zmax=1,
                          color_continuous_scale=['blue','white','red'])
     fig_corr.update_layout(height=500,width=1000,
-                           title='収益率の相関係数'
+                           title='Correlation of return per day 日時収益率の相関係数'
                            )
     st.plotly_chart(fig_corr)
     
-    #モンテカルロ法
     
+    #MC------------------------------------------------------------------------------------
     df=df_tourakuritu_merged
     df=df.drop('Date', axis=1)
     company_list_hyouji_datenashi=df.columns.values
@@ -147,7 +145,6 @@ def main():
     np_mean=df_mean.values
     np_mean=np_mean*len(df)
 
-    #N=int(st.number_input('モンテカルロシミュレーション回数は？',min_value=1000))
     x=np.random.uniform(size=(N,n))
     x/=np.sum(x, axis=1).reshape([N, 1])
 
@@ -162,10 +159,11 @@ def main():
       df2.iat[i, 3] = company_list_hyouji_datenashi[i-x.shape[0]]
       #print(i,company_list_hyouji_datenashi[i-x.shape[0]])
 
-    st.dataframe(df2)
-
+    #st.dataframe(df2)
+    
+    #result
     fig = px.scatter(df2, x='収益率の分散', y='収益率',hover_name='投資比率',color='分類')
-    fig.update_layout(height=500,width=1000,
+    fig.update_layout(height=500,width=1500,
                       title='モンテカルロシミュレーション結果',
                       xaxis={'title': '収益率の分散'},
                       yaxis={'title': '収益率'},
