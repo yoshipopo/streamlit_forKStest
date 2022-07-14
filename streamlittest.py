@@ -32,7 +32,7 @@ def main():
   
   #銘柄選択
   st.write('please select stocks 銘柄を選択してください')
-  selections = st.multiselect(df_all_company_list['コード&銘柄名'],)
+  selections = st.multiselect('',df_all_company_list['コード&銘柄名'],)
   st.write('selected stocks 選択した銘柄')
   
   #選択した銘柄表示
