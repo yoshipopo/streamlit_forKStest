@@ -31,7 +31,8 @@ def main():
   st.dataframe(df_all_company_list)
   
   #銘柄選択
-  selections = st.multiselect('select',df_all_company_list['コード&銘柄名'],)
+  st.write('please select stocks 銘柄を選択してください')
+  selections = st.multiselect(df_all_company_list['コード&銘柄名'],)
   st.write('selected stocks 選択した銘柄')
   
   #選択した銘柄表示
@@ -41,8 +42,8 @@ def main():
   selected_company_list_hyouji_datenashi = selections
   
   #パラメータ設定
-  duration = st.slider('How many years? 株価取得期間は？(年)',1,10,2,)
-  N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
+  duration = st.slider('Years? 株価取得期間は？(年)',1,10,2,)
+  N = st.slider('Trial times of MC? モンテカルロ法回数は？',100,100000,10000,)
   
   #ボタン部分
   if st.button("submit,get csv"):
