@@ -31,9 +31,9 @@ def main():
   st.dataframe(df_all_company_list)
   
   #銘柄選択
-  st.write('Please select stocks 銘柄を選択してください')
+  st.write('Please select stocks : 銘柄を選択してください')
   selections = st.multiselect('',df_all_company_list['コード&銘柄名'],)
-  st.write('Selected stocks 選択した銘柄')
+  st.write('Selected stocks : 選択した銘柄')
   
   #選択した銘柄表示
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
@@ -42,8 +42,8 @@ def main():
   selected_company_list_hyouji_datenashi = selections
   
   #パラメータ設定
-  duration = st.slider('Years? 株価取得期間は？(年)',1,10,2,)
-  N = st.slider('Trial times of MC? モンテカルロ法回数は？',100,100000,10000,)
+  duration = st.slider('Years? : 株価取得期間は？(年)',1,10,2,)
+  N = st.slider('Trial times of MC? : モンテカルロ法回数は？',100,100000,10000,)
   
   #ボタン部分
   if st.button("Submit and get csv"):
@@ -166,11 +166,10 @@ def main():
     #result
     fig = px.scatter(df2, x='収益率の分散', y='収益率',hover_name='投資比率',color='分類')
     fig.update_layout(height=500,width=1500,
-                      title='モンテカルロシミュレーション結果',
-                      xaxis={'title': '収益率の分散'},
-                      yaxis={'title': '収益率'},
+                      title='Result of MC : モンテカルロシミュレーション結果',
+                      xaxis={'title': 'Variance of expected return : 期待収益率の分散'},
+                      yaxis={'title': 'Expected return : 期待収益率'},
                       )
-
     st.plotly_chart(fig)
 
         
