@@ -82,7 +82,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='Stock Prices({}=100)'.format(standard_date.split()[0]),
+                      title='Stock Prices({}=100)'.format(standard_date.date()),
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price'})
     fig.update_layout(showlegend=True)
