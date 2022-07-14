@@ -17,34 +17,33 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 
-#st.set_page_config(layout="wide")
 def main():
   st.title('Monte Carlo simulation')
   st.write(sys.version)
   
   #st.snow()
   
+  #全銘柄リスト、xlsファイル読み込み
   path = 'data_j.xls'
   df_all_company_list = path_to_df_all_company_list(path)
   st.write('全銘柄')
   st.dataframe(df_all_company_list)
   
+  #銘柄選択
   selections = st.multiselect('銘柄を複数選択してください',df_all_company_list['コード&銘柄名'],)
-                              #['8306三菱ＵＦＪフィナンシャル・グループ','8591オリックス','9020東日本旅客鉄道','9101日本郵船'])
   st.write('選択した銘柄')
   
-  
+  #選択した銘柄表示
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
   selected_company_list = selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[1]
   selected_company_list_hyouji = selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[2]
   selected_company_list_hyouji_datenashi = selections
   
-  
+  #パラメータ設定
   duration = st.slider('株価取得期間は？(年)',1,10,2,)
   N = st.slider('モンテカルロ法回数は？',100,100000,10000,)
   
-  #press_button = st.button("submit,csv取得")
-  #st.session_state["is_pressed"] = button_states()
+  #ボタン部分
   if st.button("submit,csv取得"):
     
     df_price_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[0]
