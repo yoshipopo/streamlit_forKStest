@@ -184,7 +184,7 @@ def selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_
     selected_company_list = [str(i)+'.JP' for i in df_meigarasenntaku_temp['コード']]
     d = deque(selections)
     d.appendleft('Date')
-    selected_company_list_hyouji = list(d)
+    selected_company_list_hyouji = list(d).sort()
     return df_meigarasenntaku_temp, selected_company_list, selected_company_list_hyouji
 
 def selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration):
