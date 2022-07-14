@@ -27,13 +27,13 @@ def main():
   #全銘柄リスト、xlsファイル読み込み
   path = 'data_j.xls'
   df_all_company_list = path_to_df_all_company_list(path)
-  st.write('stocks 全銘柄')
+  st.write('All stocks 全銘柄')
   st.dataframe(df_all_company_list)
   
   #銘柄選択
-  st.write('please select stocks 銘柄を選択してください')
+  st.write('Please select stocks 銘柄を選択してください')
   selections = st.multiselect('',df_all_company_list['コード&銘柄名'],)
-  st.write('selected stocks 選択した銘柄')
+  st.write('Selected stocks 選択した銘柄')
   
   #選択した銘柄表示
   st.dataframe(selections_to_selected_company_list_and_selected_company_list_hyouji(df_all_company_list,selections)[0])
@@ -46,11 +46,12 @@ def main():
   N = st.slider('Trial times of MC? モンテカルロ法回数は？',100,100000,10000,)
   
   #ボタン部分
-  if st.button("submit,get csv"):
+  if st.button("Submit and get csv"):
     
     df_price_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[0]
     df_tourakuritu_merged = selected_company_list_to_get_df(selected_company_list,selected_company_list_hyouji,duration)[1]
 
+    st.write('株価データ : Stock price data')
     st.dataframe(df_price_merged)
     
     a=df_price_merged
@@ -60,7 +61,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='Stock Prices',
+                      title='株価 : Stock Price',
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price/円'})                  
     fig.update_layout(showlegend=True)
@@ -82,7 +83,7 @@ def main():
     fig.update_traces(hovertemplate='%{y}')
     fig.update_layout(hovermode='x')
     fig.update_layout(height=500,width=1500,
-                      title='Stock Prices({}=100)'.format(standard_date.date()),
+                      title='株価 : Stock Price({}=100)'.format(standard_date.date()),
                       xaxis={'title': 'Date'},
                       yaxis={'title': 'price'})
     fig.update_layout(showlegend=True)
@@ -102,7 +103,7 @@ def main():
                                    #hovertext='date{}'.df_tourakuritu_merged.iloc[:,i+1]
                                    ))
         fig.update_layout(height=500,width=1500,
-                          title='日時収益率のヒストグラム',
+                          title='Histogram of return per day : 日時収益率のヒストグラム',
                           xaxis={'title': '日時収益率'},
                           yaxis={'title': '度数'})
 
@@ -114,7 +115,7 @@ def main():
                          zmin=-1,zmax=1,
                          color_continuous_scale=['blue','white','red'])
     fig_corr.update_layout(height=500,width=1000,
-                           title='Correlation of return per day 日時収益率の相関係数'
+                           title='Correlation of return per day : 日時収益率の相関係数'
                            )
     st.plotly_chart(fig_corr)
     
